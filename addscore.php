@@ -21,7 +21,8 @@ $database = "high_score";
 
     <div class="row">
       <div class="large-12 columns">
-        <h1>Guitar Wars - Add Your High Score</h1>
+        <h1>Guitar Wars</h1>
+        <h2>Add Your High Score</h2>
       </div>
     </div>
 
@@ -57,16 +58,15 @@ $database = "high_score";
       }
     ?>
 
-    <hr />
-
     <div class="row">
-      <div class="large-12 columns">
+      <div class="large-6 large-offset-3 columns">
+      <hr>
         <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
           <label for="name">Name:</label>
           <input type="text" id="name" name="name" value="<?php if (!empty($name)) echo $name; ?>" /><br />
           <label for="score">Score:</label>
           <input type="text" id="score" name="score" value="<?php if (!empty($score)) echo $score; ?>" />
-          <input type="submit" value="Add" name="submit" />
+          <input class="button" type="submit" value="Add" name="submit" />
         </form>
       </div>
     </div>

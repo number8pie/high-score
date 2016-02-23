@@ -39,14 +39,14 @@ $database = "high_score";
             $data = mysqli_query($dbc, $query);
 
             // Loop through the array of score data, formatting it as HTML
-            echo '<table>';
+            echo '<table class="scoretable">';
             while ($row = mysqli_fetch_array($data)) {
             
             // Display the score data
-                echo '<tr><td class="scoreinfo">';
-                echo '<span class="score">' . $row['score'] . '</span><br />';
-                echo '<strong>Name:</strong> ' . $row['name'] . '<br />';
-                echo '<strong>Date:</strong> ' . $row['date'] . '</td></tr>';
+                echo '<tr>';
+                echo '<td><span class="score">' . $row['score'] . '</span></td>';
+                echo '<td><strong>Name:</strong> ' . $row['name'] . '</td>';
+                echo '<td><strong>Date:</strong> ' . $row['date'] . '</td></tr>';
             }
             echo '</table>';
             mysqli_close($dbc);

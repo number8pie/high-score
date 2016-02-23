@@ -1,6 +1,3 @@
 #NEXT COMMIT MESSAGE:
 
-Added header and intro paragraph.
-Copied over index.php, and addscore.php project files, changed relevant data.
-Tweaked both files so they fit into the foundation framework.
-Created db_seed.sql file to create the database, copied over from project files and changed data.
+Styled a bit.
