@@ -1,3 +1,10 @@
 #NEXT COMMIT MESSAGE:
 
-Styled a bit.
+Added input field to upload images.
+Added constant to img folder in root.
+Added images from project files.
+Tested image upload, works on upload but doesn't show in index, instead unverified shows.
+
+Next:
+1 - Fix why the images dont show on index.
+2 - Style pages (remember the image alignment in the image upload confirmation message).

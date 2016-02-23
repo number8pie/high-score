@@ -4,6 +4,7 @@ $host = "localhost";
 $username = "lee";
 $password = "lee1";
 $database = "high_score";
+define('GW_UPLOADPATH', 'img/');
 
 ?>
 
@@ -46,7 +47,12 @@ $database = "high_score";
                 echo '<tr>';
                 echo '<td><span class="score">' . $row['score'] . '</span></td>';
                 echo '<td><strong>Name:</strong> ' . $row['name'] . '</td>';
-                echo '<td><strong>Date:</strong> ' . $row['date'] . '</td></tr>';
+                echo '<td><strong>Date:</strong> ' . $row['date'] . '</td>';
+                if (is_file($row['screenshot']) && filesize($row['screenshot'])>0 ) {
+                    echo '<td><img src="' . GW_UPLOADPATH . $row['screenshot'] . '" alt="Score Image." /></td></tr>';
+                } else {
+                    echo '<td><img src="img/unverified.gif" alt="Unverified Score." /></td></tr>';
+                }
             }
             echo '</table>';
             mysqli_close($dbc);
