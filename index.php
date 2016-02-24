@@ -21,13 +21,12 @@ require_once('connectvars.php');
       <div class="large-12 columns">
         <h1>Guitar Wars - High Scores</h1>
         <p>Welcome, Guitar Warrior, do you have what it takes to crack the high score list? If so, just <a href="addscore.php">add your own score</a>.</p>
+        <hr>
       </div>
     </div>
 
-    <hr>
-
     <div class="row">
-      <div class="large-12 columns">
+      <div class="large-8 large-offset-2 columns">
         <?php
           // Connect to the database
           $dbc = mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
@@ -44,16 +43,16 @@ require_once('connectvars.php');
           
             // Display the score data
             if ($i == 0) {
-              echo '<tr><td class="topheader">Top Score: ' . $row['score'] . '</td></tr>';
+              echo '<tr><td colspan="2" class="topheader">Top Score: ' . $row['score'] . '</td></tr>';
             }
-            echo '<tr>';
-            echo '<td><span class="score">' . $row['score'] . '</span></td>';
-            echo '<td><strong>Name:</strong> ' . $row['name'] . '</td>';
-            echo '<td><strong>Date:</strong> ' . $row['date'] . '</td>';
+            echo '<tr><td class="scoreinfo">';
+            echo '<span class="score">' . $row['score'] . '</span><br />';
+            echo '<strong>Name:</strong> ' . $row['name'] . '<br />';
+            echo '<strong>Date:</strong> ' . $row['date'] . '</td>';
             if (is_file(GW_UPLOADPATH . $row['screenshot']) && filesize(GW_UPLOADPATH . $row['screenshot']) > 0) {
-                echo '<td><img src="' . GW_UPLOADPATH . $row['screenshot'] . '" alt="Score Image." /></td></tr>';
+                echo '<td class="scoreimg"><img src="' . GW_UPLOADPATH . $row['screenshot'] . '" alt="Score Image." /></td></tr>';
             } else {
-                echo '<td><img src="img/unverified.gif" alt="Unverified Score." /></td></tr>';
+                echo '<td class="scoreimg"><img src="img/unverified.gif" alt="Unverified Score." /></td></tr>';
             }
             $i++;
           }

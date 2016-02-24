@@ -11,8 +11,32 @@ h1, h2, h3, h4, h5, p {
 	font-size: 2em;
 }
 
+.scoreinfo {
+  vertical-align: top;
+  padding-right:15px;
+}
+
+.scoreimg {
+	text-align: right;
+}
+
+.conf-info {
+	text-align: left;
+	vertical-align: top;
+}
+
 .conf-img {
-	margin: 0 auto;
+	width: 70%;
+	height: 70%;
+}
+
+.conf-img,
+.conf-info {
+	display: inline-block;
+}
+
+.conf-img-cell {
+	text-align: right;
 }
 
 .topheader {
@@ -20,4 +44,9 @@ h1, h2, h3, h4, h5, p {
 	font-size: 200%;
 	background-color: #36407F;
 	color: #FFFFFF;
+}
+
+.error {
+  font-weight: bold;
+  color: #FF0000;
 }
