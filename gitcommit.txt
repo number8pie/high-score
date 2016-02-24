@@ -3,3 +3,4 @@
 New static variable set in appvars, GW_MAXFILESIZE. As name suggests it's the maximum file size for the image upload.
 Added validation to the image upload, supported formats are: gif, jpeg, pjpeg and png. Tested.
 Styled pages a bit.
+Created removescore page for administrators to remove scores from the database.
