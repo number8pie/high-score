@@ -1,8 +1,13 @@
-h1, h2, h3, h4, h5, p {
+h1, h2, h3, h4, h5 {
 	text-align: center;
 }
 
-.scoretable {
+.center {
+	text-align: center;
+}
+
+.scoretable,
+.removetable {
 	width: 100%;
 }
 
@@ -53,4 +58,12 @@ h1, h2, h3, h4, h5, p {
 
 .admintable {
 	width: 100%;
+}
+
+input[type=radio] {
+	margin-left: 12px;	
+}
+
+input[type=radio]:first-child {
+	margin-left: 0;	
 }

@@ -20,7 +20,7 @@ require_once('connectvars.php');
     <div class="row">
       <div class="large-12 columns">
         <h1>Guitar Wars - High Scores</h1>
-        <p>Welcome, Guitar Warrior, do you have what it takes to crack the high score list? If so, just <a href="addscore.php">add your own score</a>.</p>
+        <p class="center">Welcome, Guitar Warrior, do you have what it takes to crack the high score list? If so, just <a href="addscore.php">add your own score</a>.</p>
         <hr>
       </div>
     </div>
