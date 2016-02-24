@@ -1,10 +1,7 @@
 <?php 
 
-$host = "localhost";
-$username = "lee";
-$password = "lee1";
-$database = "high_score";
-define('GW_UPLOADPATH', 'img/');
+require_once('appvars.php');
+require_once('connectvars.php');
 
 ?>
 
@@ -32,30 +29,36 @@ define('GW_UPLOADPATH', 'img/');
     <div class="row">
       <div class="large-12 columns">
         <?php
-            // Connect to the database
-            $dbc = mysqli_connect("$host", "$username", "$password", "$database");
-            
-            // Retrieve the score data from MySQL
-            $query = "SELECT * FROM guitar_wars";
-            $data = mysqli_query($dbc, $query);
+          // Connect to the database
+          $dbc = mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
+          
+          // Retrieve the score data from MySQL
+          $query = "SELECT * FROM guitar_wars ORDER BY score DESC, DATE ASC";
+          $data = mysqli_query($dbc, $query);
 
-            // Loop through the array of score data, formatting it as HTML
-            echo '<table class="scoretable">';
-            while ($row = mysqli_fetch_array($data)) {
-            
+          // Loop through the array of score data, formatting it as HTML
+          echo '<table class="scoretable">';
+          $i = 0;
+
+          while ($row = mysqli_fetch_array($data)) {
+          
             // Display the score data
-                echo '<tr>';
-                echo '<td><span class="score">' . $row['score'] . '</span></td>';
-                echo '<td><strong>Name:</strong> ' . $row['name'] . '</td>';
-                echo '<td><strong>Date:</strong> ' . $row['date'] . '</td>';
-                if (is_file($row['screenshot']) && filesize($row['screenshot'])>0 ) {
-                    echo '<td><img src="' . GW_UPLOADPATH . $row['screenshot'] . '" alt="Score Image." /></td></tr>';
-                } else {
-                    echo '<td><img src="img/unverified.gif" alt="Unverified Score." /></td></tr>';
-                }
+            if ($i == 0) {
+              echo '<tr><td class="topheader">Top Score: ' . $row['score'] . '</td></tr>';
             }
-            echo '</table>';
-            mysqli_close($dbc);
+            echo '<tr>';
+            echo '<td><span class="score">' . $row['score'] . '</span></td>';
+            echo '<td><strong>Name:</strong> ' . $row['name'] . '</td>';
+            echo '<td><strong>Date:</strong> ' . $row['date'] . '</td>';
+            if (is_file(GW_UPLOADPATH . $row['screenshot']) && filesize(GW_UPLOADPATH . $row['screenshot']) > 0) {
+                echo '<td><img src="' . GW_UPLOADPATH . $row['screenshot'] . '" alt="Score Image." /></td></tr>';
+            } else {
+                echo '<td><img src="img/unverified.gif" alt="Unverified Score." /></td></tr>';
+            }
+            $i++;
+          }
+          echo '</table>';
+          mysqli_close($dbc);
         ?>
       </div>
     </div>

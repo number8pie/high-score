@@ -1,10 +1,10 @@
 #NEXT COMMIT MESSAGE:
 
-Added input field to upload images.
-Added constant to img folder in root.
-Added images from project files.
-Tested image upload, works on upload but doesn't show in index, instead unverified shows.
+Image displate if statement now working, needed file path in the if statement.
+Created appvars.php and connectvars.php, in thse files application and connection constants are declared. Required once on the pages.
+Changed select statement to order the results by score descending, then date ascending, to get high scores on top.
+Added if statement to index that displays the first score therefore the highest, at the top of the table.
 
 Next:
-1 - Fix why the images dont show on index.
+1 - Continue with project...
 2 - Style pages (remember the image alignment in the image upload confirmation message).

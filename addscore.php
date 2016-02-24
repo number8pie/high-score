@@ -1,10 +1,7 @@
 <?php 
 
-$host = "localhost";
-$username = "lee";
-$password = "lee1";
-$database = "high_score";
-define('GW_UPLOADPATH', 'img/');
+require_once('appvars.php');
+require_once('connectvars.php');
 
 ?>
 
@@ -41,7 +38,7 @@ define('GW_UPLOADPATH', 'img/');
               $target = GW_UPLOADPATH . $screenshot;
               if (move_uploaded_file($_FILES['screenshot']['tmp_name'], $target)) {
                 // Connect to the database
-                $dbc = mysqli_connect("$host", "$username", "$password", "$database");
+                $dbc = mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
                 // Write the data to the database
                 $query = "INSERT INTO guitar_wars VALUES (0, NOW(), '$name', '$score', '$screenshot')";
