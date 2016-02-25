@@ -1,4 +1,4 @@
 #NEXT COMMIT MESSAGE:
 
-Created auth.php to contain the HTTP authentication script to be included on any page that requires authentication.
-Included auth on admin and removescore.
+Creted approve.php page to be run when the high scores on the admin page are approved. Styled.
+Added approve link to admin page so that scores can be approved.

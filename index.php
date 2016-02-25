@@ -32,7 +32,7 @@ require_once('connectvars.php');
           $dbc = mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
           
           // Retrieve the score data from MySQL
-          $query = "SELECT * FROM guitar_wars ORDER BY score DESC, DATE ASC";
+          $query = "SELECT * FROM guitar_wars WHERE approved = 1 ORDER BY score DESC, DATE ASC";
           $data = mysqli_query($dbc, $query);
 
           // Loop through the array of score data, formatting it as HTML

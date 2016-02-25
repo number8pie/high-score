@@ -45,7 +45,7 @@ require_once('connectvars.php');
                     $dbc = mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
                     // Write the data to the database
-                    $query = "INSERT INTO guitar_wars VALUES (0, NOW(), '$name', '$score', '$screenshot')";
+                    $query = "INSERT INTO guitar_wars VALUES (0, NOW(), '$name', '$score', '$screenshot', 0)";
                     mysqli_query($dbc, $query);
 
                     // Confirm success with the user

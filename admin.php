@@ -43,7 +43,12 @@ require_once('connectvars.php');
 						echo '<tr class="scorerow"><td><strong>' . $row['name'] . '</strong></td>';
 						echo '<td>' . $row['date'] . '</td>';
 						echo '<td>' . $row['score'] . '</td>';
-						echo '<td><a href="removescore.php?id=' . $row['id'] . '&amp;date=' . $row['date'] . '&amp;name=' . $row['name'] . '&amp;score=' . $row['score'] . '&amp;screenshot=' . $row['screenshot'] . '">Remove</a></td></tr>';
+						echo '<td><a href="removescore.php?id=' . $row['id'] . '&amp;date=' . $row['date'] . '&amp;name=' . $row['name'] . '&amp;score=' . $row['score'] . '&amp;screenshot=' . $row['screenshot'] . '">Remove</a>';
+            if ($row['approved'] == 0) {
+              echo ' / <a href="approve.php?id=' . $row['id'] . '&amp;date=' . $row['date'] . '&amp;name=' . $row['name'] . '&amp;score=' . $row['score'] . '&amp;screenshot=' . $row['screenshot'] . '">Approve</a>';
+            }
+            echo '</td></tr>';
+
 					}
 					echo '</table>';
 					mysqli_close($dbc);
