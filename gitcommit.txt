@@ -1,4 +1,4 @@
 #NEXT COMMIT MESSAGE:
 
-Created admin page for administrators to view scores, with a link to remove scores.
-Created removescore page for the sdmin page to send data to asking for confirmation before removing the score.
+Created auth.php to contain the HTTP authentication script to be included on any page that requires authentication.
+Included auth on admin and removescore.

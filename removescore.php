@@ -1,5 +1,6 @@
 <?php
 
+require_once('auth.php');
 require_once('appvars.php');
 require_once('connectvars.php');
 
