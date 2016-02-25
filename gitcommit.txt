@@ -1,4 +1,3 @@
 #NEXT COMMIT MESSAGE:
 
-Creted approve.php page to be run when the high scores on the admin page are approved. Styled.
-Added approve link to admin page so that scores can be approved.
+SQL injection prevention added, with trim, escaping strings and SQL insert parameters.

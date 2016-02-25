@@ -29,11 +29,11 @@ require_once('connectvars.php');
         <?php
           if (isset($_POST['submit'])) {
             // Grab the score data from the POST
-            $name = $_POST['name'];
-            $score = $_POST['score'];
-            $screenshot = $_FILES['screenshot']['name'];
+            $name = mysqli_escape_string(trim($_POST['name']));
+            $score = mysqli_escape_string(trim($_POST['score']));
+            $screenshot = mysqli_escape_string(trim($_FILES['screenshot']['name']));
             $screenshot_type = $_FILES['screenshot']['type'];
-            $screenshot_size = $_FILES['screenshot']['size']; 
+            $screenshot_size = $_FILES['screenshot']['size'];
 
             if (!empty($name) && !empty($score) && !empty($screenshot)) {
               if ((($screenshot_type == 'image/gif') || ($screenshot_type == 'image/jpeg') || ($screenshot_type == 'image/pjpeg') || ($screenshot_type == 'image/png')) && ($screenshot_size > 0) && ($screenshot_size <= GW_MAXFILESIZE)) {
@@ -45,7 +45,7 @@ require_once('connectvars.php');
                     $dbc = mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
                     // Write the data to the database
-                    $query = "INSERT INTO guitar_wars VALUES (0, NOW(), '$name', '$score', '$screenshot', 0)";
+                    $query = "INSERT INTO guitar_wars (date, name, score, screenshot) VALUES (NOW(), '$name', '$score', '$screenshot')";
                     mysqli_query($dbc, $query);
 
                     // Confirm success with the user
