@@ -68,3 +68,7 @@ input[type=radio] {
 input[type=radio]:first-child {
 	margin-left: 0;	
 }
+
+.verification-img {
+	margin-bottom: 12px;
+}

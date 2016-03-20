@@ -1,7 +1,6 @@
 <?php 
 
-require_once('appvars.php');
-require_once('connectvars.php');
+session_start();
 
 ?>
 
@@ -27,6 +26,9 @@ require_once('connectvars.php');
     <div class="row">
       <div class="large-6 large-offset-3 columns">
         <?php
+          require_once('appvars.php');
+          require_once('connectvars.php');
+
           if (isset($_POST['submit'])) {
             // Grab the score data from the POST
             $dbc = mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
@@ -36,44 +38,52 @@ require_once('connectvars.php');
             $screenshot_type = $_FILES['screenshot']['type'];
             $screenshot_size = $_FILES['screenshot']['size'];
 
-            if (!empty($name) && !empty($score) && !empty($screenshot)) {
-              if ((($screenshot_type == 'image/gif') || ($screenshot_type == 'image/jpeg') || ($screenshot_type == 'image/pjpeg') || ($screenshot_type == 'image/png')) && ($screenshot_size > 0) && ($screenshot_size <= GW_MAXFILESIZE)) {
-                if ($_FILES['screenshot']['error'] == 0) {
-                  // Move the file to the target upload folder
-                  $target = GW_UPLOADPATH . $screenshot;
-                  if (move_uploaded_file($_FILES['screenshot']['tmp_name'], $target)) {
-                    // Connect to the database
-                    $dbc = mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
+            // Check the CAPTCHA pass-phrase for verification
+            $user_pass_phrase = sha1($_POST['verify']); 
+            if ($_SESSION['pass_phrase'] == $user_pass_phrase) {
+              if (!empty($name) && !empty($score) && !empty($screenshot)) {
+                if ((($screenshot_type == 'image/gif') || ($screenshot_type == 'image/jpeg') || ($screenshot_type == 'image/pjpeg') || ($screenshot_type == 'image/png')) && ($screenshot_size > 0) && ($screenshot_size <= GW_MAXFILESIZE)) {
+                  if ($_FILES['screenshot']['error'] == 0) {
+                    // Move the file to the target upload folder
+                    $target = GW_UPLOADPATH . $screenshot;
+                    if (move_uploaded_file($_FILES['screenshot']['tmp_name'], $target)) {
+                      // Connect to the database
+                      $dbc = mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
-                    // Write the data to the database
-                    $query = "INSERT INTO guitar_wars (date, name, score, screenshot) VALUES (NOW(), '$name', '$score', '$screenshot')";
-                    mysqli_query($dbc, $query);
+                      // Write the data to the database
+                      $query = "INSERT INTO guitar_wars (date, name, score, screenshot) VALUES (NOW(), '$name', '$score', '$screenshot')";
+                      mysqli_query($dbc, $query);
 
-                    // Confirm success with the user
-                    echo '<p>Thanks for adding your new high score!</p>';
-                    echo '<table><tr><td class="conf-info"><strong>Name:</strong> ' . $name . '<br />';
-                    echo '<strong>Score:</strong> ' . $score . '</td>';
-                    echo '<td class="conf-img-cell"><img class="conf-img" src="' . GW_UPLOADPATH . $screenshot . '" alt="Score Image." /></td></table>';
-                    echo '<p><a href="index.php">&lt;&lt; Back to high scores</a></p>';
+                      // Confirm success with the user
+                      echo '<p>Thanks for adding your new high score!</p>';
+                      echo '<table><tr><td class="conf-info"><strong>Name:</strong> ' . $name . '<br />';
+                      echo '<strong>Score:</strong> ' . $score . '</td>';
+                      echo '<td class="conf-img-cell"><img class="conf-img" src="' . GW_UPLOADPATH . $screenshot . '" alt="Score Image." /></td></table>';
+                      echo '<p><a href="index.php">&lt;&lt; Back to high scores</a></p>';
 
-                    // Clear the score data to clear the form
-                    $name = "";
-                    $score = "";
+                      // Clear the score data to clear the form
+                      $name = "";
+                      $score = "";
 
-                    mysqli_close($dbc);
-                  } else {
-                    echo '<p>Sorry, there was a problem uploading your screen shot image.</p>';
+                      mysqli_close($dbc);
+                    } else {
+                      echo '<p>Sorry, there was a problem uploading your screen shot image.</p>';
+                    }
                   }
+                } else {
+                  echo '<p class="error">The screen shot must be a GIF, JPEG or PNG image file no greater than ' . GW_MAXFILESIZE . ' KB in size.</p>';
                 }
-              } else {
-                echo '<p class="error">The screen shot must be a GIF, JPEG or PNG image file no greater than ' . GW_MAXFILESIZE . ' KB in size.</p>';
+                //Try to delete temporary screenshot image file
+                @unlink($_FILES['screenshot']['tmp_name']);
               }
-              //Try to delete temporary screenshot image file
-              @unlink($_FILES['screenshot']['tmp_name']);
+              else {
+                echo '<p class="error">Please enter all of the information to add your high score.</p>';
+              }
+            } else {
+              echo '<p class="error">Please enter the verification pass-phrase exactly as shown.</p>';
             }
-            else {
-              echo '<p class="error">Please enter all of the information to add your high score.</p>';
-            }
+
+
           }
         ?>
       </div>
@@ -88,10 +98,11 @@ require_once('connectvars.php');
           <input type="text" id="name" name="name" value="<?php if (!empty($name)) echo $name; ?>" />
           <label for="score">Score:</label>
           <input type="text" id="score" name="score" value="<?php if (!empty($score)) echo $score; ?>" />
-          
           <label for="screenshot">Screen Shot:</label>
           <input type="file" id="screenshot" name="screenshot" value="<?php if (!empty($screenshot)) echo $screenshot; ?>" />
-
+          <label for="verify">Verification:</label>
+          <img class="verification-img" src="captcha.php" alt="Verification pass-phrase.">
+          <input type="text" id="verify" name="verify" placeholder="Please enter the pass-phrase above (refresh for another image)."></input>
           <input class="button" type="submit" value="Add" name="submit" />
         </form>
       </div>

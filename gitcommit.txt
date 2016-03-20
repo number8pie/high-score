@@ -1,5 +1,4 @@
 #NEXT COMMIT MESSAGE:
 
-Created captcha.php, wrote contents to create random captcha image.
-Copied Courier New Bold font to root for use in captcha.
-Tested that the random captcha image generator works by loading up captcha.php in a browser and every time you hit refresh it generates a random captcha image.
+Added verify form field to addscore.php, which uses capatcha.php as it's src attribute.
+Surrounded if loop that checks that the user has entered the required fields in addscore.php, with another iff loop that checks that the verify field matches the captcha image or echoes an error message.
